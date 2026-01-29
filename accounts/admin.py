@@ -5,53 +5,13 @@ from .models import CustomUser
 
 
 class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
+    add_form = CustomUserCreationForm   # user create form
+    form = CustomUserChangeForm         # user update form     
     model = CustomUser
-    list_display = [
-        "email",
-        "username",
-        "age",
-        "is_staff",
-    ]
-    # add_fieldsets = UserAdmin.add_fieldsets + ((None, {"fields": ("age",)}),)
-    add_fieldsets = (
-        (
-            None,
-            {
-                "classes": ("wide",),
-                "fields": (
-                    "username",
-                    "email",
-                    "age",
-                    "password1",
-                    "password2",
-                ),  # Add confirm_password if it's in your Form
-            },
-        ),
-    )
-    # fieldsets = UserAdmin.fieldsets + ((None, {"fields": ("age",)}),)
+    list_display = ["email", "username", "age", "is_staff",]
 
-    fieldsets = (
-        (None, {"fields": ("username", "password")}),
-        (
-            "Personal info",
-            {"fields": ("first_name", "last_name", "email", "age")},
-        ),  # Added age here
-        (
-            "Permissions",
-            {
-                "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                )
-            },
-        ),
-        ("Important dates", {"fields": ("last_login", "date_joined")}),
-    )
+    add_fieldsets = UserAdmin.add_fieldsets + ((None, {"fields": ("age",)}),)
+    fieldsets = UserAdmin.fieldsets + ((None, {"fields": ("age",)}),)
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
